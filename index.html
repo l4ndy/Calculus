@@ -1,1 +1,725 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMware by Broadcom License Calculator - Subscription Model</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #2c3e50, #4a6741);
+            --accent-color: #667eea;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --border-radius: 8px;
+            --border-radius-lg: 15px;
+            --border-radius-xl: 20px;
+            --spacing-sm: 8px;
+            --spacing-md: 15px;
+            --spacing-lg: 20px;
+            --spacing-xl: 30px;
+            --font-size-sm: 0.9em;
+            --font-size-base: 1em;
+            --font-size-lg: 1.1em;
+            --font-size-xl: 1.3em;
+            --font-size-xxl: 2.5em;
+        }
+
+```
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--primary-gradient);
+        min-height: 100vh;
+        padding: var(--spacing-lg);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius-xl);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .header {
+        background: var(--secondary-gradient);
+        color: white;
+        padding: var(--spacing-xl);
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: var(--font-size-xxl);
+        margin-bottom: 10px;
+        font-weight: 300;
+    }
+
+    .header p {
+        font-size: var(--font-size-lg);
+        opacity: 0.9;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-xl);
+        padding: 40px;
+    }
+
+    .input-section {
+        background: #f8f9fa;
+        padding: var(--spacing-xl);
+        border-radius: var(--border-radius-lg);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .results-section {
+        background: var(--primary-gradient);
+        color: white;
+        padding: var(--spacing-xl);
+        border-radius: var(--border-radius-lg);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: var(--spacing-sm);
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    select, input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    select:focus, input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        transform: translateY(-2px);
+    }
+
+    .btn {
+        padding: 12px 15px;
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background: var(--primary-gradient);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-success {
+        background: var(--success-color);
+        color: white;
+    }
+
+    .btn-success:hover {
+        background: #218838;
+        transform: translateY(-2px);
+    }
+
+    .btn-danger {
+        background: var(--danger-color);
+        color: white;
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    .btn-danger:hover {
+        background: #c82333;
+    }
+
+    .btn-block {
+        width: 100%;
+    }
+
+    .cluster-config {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+        background: #f8f9fa;
+        position: relative;
+    }
+
+    .cluster-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .footer {
+        text-align: center;
+        padding: var(--spacing-lg);
+        background: #2c3e50;
+        color: white;
+        font-size: var(--font-size-sm);
+    }
+
+    .result-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: var(--spacing-lg);
+        border-radius: 10px;
+        margin-bottom: var(--spacing-md);
+        border-left: 4px solid #fff;
+    }
+
+    .result-item h3 {
+        font-size: var(--font-size-xl);
+        margin-bottom: 10px;
+    }
+
+    .result-item p {
+        font-size: var(--font-size-lg);
+        opacity: 0.9;
+        margin-bottom: 5px;
+    }
+
+    .cluster-result {
+        background: rgba(255, 255, 255, 0.05);
+        padding: var(--spacing-md);
+        margin: 10px 0;
+        border-radius: var(--border-radius);
+        border-left: 3px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .alert {
+        padding: var(--spacing-md);
+        border-radius: var(--border-radius);
+        margin-bottom: var(--spacing-lg);
+        border-left: 4px solid;
+    }
+
+    .alert-warning {
+        background: #fff3cd;
+        color: #856404;
+        border-left-color: var(--warning-color);
+    }
+
+    .alert-info {
+        background: #e7f3ff;
+        color: #0c5460;
+        border-left-color: #0dcaf0;
+    }
+
+    .alert-danger {
+        background: #f8d7da;
+        color: #721c24;
+        border-left-color: var(--danger-color);
+    }
+
+    .loading {
+        display: none;
+        text-align: center;
+        padding: var(--spacing-lg);
+    }
+
+    .spinner {
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top: 3px solid white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 10px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    @media (max-width: 768px) {
+        .content {
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+        }
+        
+        .header h1 {
+            font-size: 2em;
+        }
+
+        .cluster-header {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>VMware by Broadcom License Calculator</h1>
+            <p>Subscription Licensing Model - Per-Cluster Calculations</p>
+        </div>
+
+```
+    <div class="content">
+        <div class="input-section">
+            <div class="alert alert-info">
+                <strong>Disclaimer:</strong> This calculator provides estimates based on publicly available information about VMware by Broadcom licensing. Actual pricing may vary significantly based on enterprise agreements, volume discounts, and specific terms negotiated with VMware by Broadcom. Always consult with VMware by Broadcom directly or OEM resellers for official pricing and licensing requirements. This tool is for estimation purposes only.
+            </div>
+
+            <form id="licenseForm" novalidate>
+                <div class="form-group">
+                    <label for="licenseType">License Type *</label>
+                    <select id="licenseType" required aria-describedby="licenseType-help">
+                        <option value="">Select License Type</option>
+                        <option value="VVF">VMware vSphere Foundation (VVF)</option>
+                        <option value="VCF">VMware Cloud Foundation (VCF)</option>
+                        <option value="VEP">VMware vSphere Enterprise Plus</option>
+                    </select>
+                    <div id="licenseType-help" class="visually-hidden">Choose the VMware license type for your environment</div>
+                </div>
+
+                <h3 style="margin: 25px 0 15px 0; color: #2c3e50;">Cluster Configuration</h3>
+                <div id="clustersContainer" role="group" aria-label="Cluster configurations">
+                    <!-- Clusters will be added here -->
+                </div>
+
+                <div id="errorContainer" role="alert" aria-live="polite"></div>
+
+                <button type="button" id="addClusterBtn" class="btn btn-success btn-block" aria-describedby="add-cluster-help">
+                    + Add Cluster
+                </button>
+                <div id="add-cluster-help" class="visually-hidden">Add another cluster to your configuration</div>
+
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 20px;" aria-describedby="calculate-help">
+                    Calculate Licenses
+                </button>
+                <div id="calculate-help" class="visually-hidden">Calculate licensing requirements for all configured clusters</div>
+            </form>
+        </div>
+
+        <div class="results-section">
+            <h2>Licensing Results</h2>
+            <div class="loading" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p>Calculating licenses...</p>
+            </div>
+            <div id="results">
+                <p style="text-align: center; opacity: 0.7; font-size: 1.1em; margin-top: 50px;">
+                    Configure your clusters and click "Calculate Licenses" to see per-cluster licensing requirements.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2025 Landi Elezi. All rights reserved.</p>
+</div>
+
+<script>
+    // Configuration constants
+    const PRICING_CONFIG = {
+        VVF: { 
+            pricePerCore: 150, 
+            minCores: 50, 
+            vsanAllowanceRatio: 0.25,
+            vsanAddonPrice: 115,
+            name: 'VMware vSphere Foundation'
+        },
+        VCF: { 
+            pricePerCore: 350, 
+            minCores: 100, 
+            vsanAllowanceRatio: 1.0,
+            vsanAddonPrice: 115,
+            name: 'VMware Cloud Foundation'
+        },
+        VEP: { 
+            pricePerSocket: 1900, 
+            vsanPricePerTib: 230,
+            name: 'VMware vSphere Enterprise Plus'
+        }
+    };
+
+    const VALIDATION_CONFIG = {
+        minNodes: 1,
+        maxNodes: 1000,
+        minSockets: 1,
+        maxSockets: 8,
+        minCores: 1,
+        maxCores: 128,
+        minVsanCapacity: 0,
+        maxVsanCapacity: 10000
+    };
+
+    // Main calculator class
+    class VMwareLicenseCalculator {
+        constructor() {
+            this.clusterCount = 0;
+            this.initializeEventListeners();
+            this.addCluster(); // Add first cluster by default
+        }
+
+        initializeEventListeners() {
+            document.getElementById('addClusterBtn').addEventListener('click', () => this.addCluster());
+            document.getElementById('licenseForm').addEventListener('submit', (e) => this.handleFormSubmit(e));
+            
+            // Add real-time validation
+            document.getElementById('licenseType').addEventListener('change', () => this.clearErrors());
+        }
+
+        addCluster() {
+            this.clusterCount++;
+            const clustersContainer = document.getElementById('clustersContainer');
+            
+            const newCluster = document.createElement('fieldset');
+            newCluster.className = 'cluster-config';
+            newCluster.setAttribute('data-cluster', this.clusterCount);
+            newCluster.setAttribute('aria-label', `Cluster ${this.clusterCount} configuration`);
+            
+            newCluster.innerHTML = `
+                <legend class="visually-hidden">Cluster ${this.clusterCount} Configuration</legend>
+                <div class="cluster-header">
+                    <h4 style="color: var(--accent-color);">Cluster ${this.clusterCount}</h4>
+                    ${this.clusterCount > 1 ? `<button type="button" class="btn btn-danger" onclick="calculator.removeCluster(${this.clusterCount})" aria-label="Remove cluster ${this.clusterCount}">Remove</button>` : ''}
+                </div>
+                
+                <div class="form-group">
+                    <label for="nodes-${this.clusterCount}">Number of Nodes *</label>
+                    <input type="number" id="nodes-${this.clusterCount}" class="nodes-input" 
+                           min="${VALIDATION_CONFIG.minNodes}" max="${VALIDATION_CONFIG.maxNodes}" 
+                           required aria-describedby="nodes-${this.clusterCount}-help">
+                    <div id="nodes-${this.clusterCount}-help" class="visually-hidden">Enter the number of physical servers in this cluster</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cpuSockets-${this.clusterCount}">CPU Sockets per Node *</label>
+                    <input type="number" id="cpuSockets-${this.clusterCount}" class="cpuSockets-input" 
+                           min="${VALIDATION_CONFIG.minSockets}" max="${VALIDATION_CONFIG.maxSockets}" 
+                           required aria-describedby="sockets-${this.clusterCount}-help">
+                    <div id="sockets-${this.clusterCount}-help" class="visually-hidden">Enter the number of CPU sockets in each server</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="coresPerCpu-${this.clusterCount}">Cores per CPU *</label>
+                    <input type="number" id="coresPerCpu-${this.clusterCount}" class="coresPerCpu-input" 
+                           min="${VALIDATION_CONFIG.minCores}" max="${VALIDATION_CONFIG.maxCores}" 
+                           required aria-describedby="cores-${this.clusterCount}-help">
+                    <div id="cores-${this.clusterCount}-help" class="visually-hidden">Enter the number of cores in each CPU</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="vsanCapacity-${this.clusterCount}">Raw vSAN Storage Capacity (TiB)</label>
+                    <input type="number" id="vsanCapacity-${this.clusterCount}" class="vsanCapacity-input" 
+                           min="${VALIDATION_CONFIG.minVsanCapacity}" max="${VALIDATION_CONFIG.maxVsanCapacity}" 
+                           step="0.1" aria-describedby="vsan-${this.clusterCount}-help">
+                    <div id="vsan-${this.clusterCount}-help" class="visually-hidden">Enter the total raw storage capacity for vSAN in this cluster (optional)</div>
+                </div>
+            `;
+            
+            clustersContainer.appendChild(newCluster);
+            
+            // Focus on the first input of the new cluster
+            document.getElementById(`nodes-${this.clusterCount}`).focus();
+        }
+
+        removeCluster(clusterId) {
+            const clusterElement = document.querySelector(`[data-cluster="${clusterId}"]`);
+            if (clusterElement && this.clusterCount > 1) {
+                clusterElement.remove();
+                this.clearErrors();
+            }
+        }
+
+        handleFormSubmit(e) {
+            e.preventDefault();
+            this.clearErrors();
+            
+            const validationErrors = this.validateForm();
+            if (validationErrors.length > 0) {
+                this.displayErrors(validationErrors);
+                return;
+            }
+
+            this.showLoading();
+            
+            // Simulate processing time for better UX
+            setTimeout(() => {
+                this.calculateLicenses();
+                this.hideLoading();
+            }, 500);
+        }
+
+        validateForm() {
+            const errors = [];
+            const licenseType = document.getElementById('licenseType').value;
+            
+            if (!licenseType) {
+                errors.push('Please select a license type.');
+            }
+
+            const clusterElements = document.querySelectorAll('.cluster-config');
+            
+            if (clusterElements.length === 0) {
+                errors.push('Please add at least one cluster.');
+            }
+
+            clusterElements.forEach((cluster) => {
+                const clusterId = cluster.getAttribute('data-cluster');
+                const nodes = this.getInputValue(`nodes-${clusterId}`);
+                const cpuSockets = this.getInputValue(`cpuSockets-${clusterId}`);
+                const coresPerCpu = this.getInputValue(`coresPerCpu-${clusterId}`);
+                const vsanCapacity = this.getInputValue(`vsanCapacity-${clusterId}`);
+
+                if (!this.isValidNumber(nodes, VALIDATION_CONFIG.minNodes, VALIDATION_CONFIG.maxNodes)) {
+                    errors.push(`Cluster ${clusterId}: Nodes must be between ${VALIDATION_CONFIG.minNodes} and ${VALIDATION_CONFIG.maxNodes}.`);
+                }
+                
+                if (!this.isValidNumber(cpuSockets, VALIDATION_CONFIG.minSockets, VALIDATION_CONFIG.maxSockets)) {
+                    errors.push(`Cluster ${clusterId}: CPU sockets must be between ${VALIDATION_CONFIG.minSockets} and ${VALIDATION_CONFIG.maxSockets}.`);
+                }
+                
+                if (!this.isValidNumber(coresPerCpu, VALIDATION_CONFIG.minCores, VALIDATION_CONFIG.maxCores)) {
+                    errors.push(`Cluster ${clusterId}: Cores per CPU must be between ${VALIDATION_CONFIG.minCores} and ${VALIDATION_CONFIG.maxCores}.`);
+                }
+                
+                if (vsanCapacity !== null && !this.isValidNumber(vsanCapacity, VALIDATION_CONFIG.minVsanCapacity, VALIDATION_CONFIG.maxVsanCapacity)) {
+                    errors.push(`Cluster ${clusterId}: vSAN capacity must be between ${VALIDATION_CONFIG.minVsanCapacity} and ${VALIDATION_CONFIG.maxVsanCapacity} TiB.`);
+                }
+            });
+
+            return errors;
+        }
+
+        getInputValue(inputId) {
+            const element = document.getElementById(inputId);
+            if (!element) return null;
+            
+            const value = element.value.trim();
+            if (value === '') return null;
+            
+            const numValue = parseFloat(value);
+            return isNaN(numValue) ? null : numValue;
+        }
+
+        isValidNumber(value, min, max) {
+            return value !== null && value >= min && value <= max;
+        }
+
+        calculateLicenses() {
+            const licenseType = document.getElementById('licenseType').value;
+            const clusterElements = document.querySelectorAll('.cluster-config');
+            
+            const clusters = [];
+            let totalCost = 0;
+            const warnings = [];
+
+            clusterElements.forEach((cluster) => {
+                const clusterId = cluster.getAttribute('data-cluster');
+                const nodes = this.getInputValue(`nodes-${clusterId}`) || 0;
+                const cpuSockets = this.getInputValue(`cpuSockets-${clusterId}`) || 0;
+                const coresPerCpu = this.getInputValue(`coresPerCpu-${clusterId}`) || 0;
+                const vsanCapacity = this.getInputValue(`vsanCapacity-${clusterId}`) || 0;
+                
+                const clusterData = {
+                    id: clusterId,
+                    nodes: nodes,
+                    cpuSockets: cpuSockets,
+                    coresPerCpu: coresPerCpu,
+                    vsanCapacity: vsanCapacity,
+                    totalCores: nodes * cpuSockets * coresPerCpu,
+                    totalSockets: nodes * cpuSockets
+                };
+
+                // Calculate licenses per cluster
+                const licenseCalc = this.calculateClusterLicenses(licenseType, clusterData);
+                clusterData.licensing = licenseCalc;
+                totalCost += licenseCalc.totalCost;
+
+                if (licenseCalc.warnings.length > 0) {
+                    warnings.push(...licenseCalc.warnings.map(w => `Cluster ${clusterId}: ${w}`));
+                }
+
+                clusters.push(clusterData);
+            });
+
+            this.displayResults(licenseType, clusters, totalCost, warnings);
+        }
+
+        calculateClusterLicenses(licenseType, cluster) {
+            const config = PRICING_CONFIG[licenseType];
+            let licensesNeeded = 0;
+            let licenseUnit = '';
+            let baseCost = 0;
+            let vsanCost = 0;
+            let vsanAllowance = 0;
+            let vsanAddOnNeeded = 0;
+            const warnings = [];
+
+            switch (licenseType) {
+                case 'VVF':
+                case 'VCF':
+                    licensesNeeded = Math.max(cluster.totalCores, config.minCores);
+                    licenseUnit = 'cores';
+                    baseCost = licensesNeeded * config.pricePerCore;
+                    
+                    vsanAllowance = licensesNeeded * config.vsanAllowanceRatio;
+                    
+                    if (cluster.vsanCapacity > vsanAllowance) {
+                        vsanAddOnNeeded = cluster.vsanCapacity - vsanAllowance;
+                        vsanCost = vsanAddOnNeeded * config.vsanAddonPrice;
+                    }
+                    
+                    if (licensesNeeded === config.minCores && cluster.totalCores < config.minCores) {
+                        warnings.push(`Minimum ${config.minCores} cores required. You have ${cluster.totalCores} cores but will pay for ${config.minCores}.`);
+                    }
+                    break;
+
+                case 'VEP':
+                    licensesNeeded = cluster.totalSockets;
+                    licenseUnit = 'sockets';
+                    baseCost = licensesNeeded * config.pricePerSocket;
+                    
+                    if (cluster.vsanCapacity > 0) {
+                        vsanCost = Math.ceil(cluster.vsanCapacity) * config.vsanPricePerTib;
+                    }
+                    break;
+            }
+
+            return {
+                licensesNeeded,
+                licenseUnit,
+                baseCost,
+                vsanCost,
+                vsanAllowance,
+                vsanAddOnNeeded,
+                totalCost: baseCost + vsanCost,
+                warnings
+            };
+        }
+
+        displayResults(licenseType, clusters, totalCost, warnings) {
+            const resultsDiv = document.getElementById('results');
+            const config = PRICING_CONFIG[licenseType];
+            
+            let html = `
+                <div class="result-item">
+                    <h3>Overall Summary</h3>
+                    <p><strong>License Type:</strong> ${config.name}</p>
+                    <p><strong>Total Clusters:</strong> ${clusters.length}</p>
+                    <p><strong>Total Annual Cost:</strong> £${totalCost.toLocaleString()}</p>
+                    <p style="font-size: 0.9em; opacity: 0.8;">*Approximate pricing in British Sterling - contact VMware for exact quotes</p>
+                </div>
+            `;
+
+            // Per-cluster breakdown
+            html += `<div class="result-item"><h3>Per-Cluster Licensing Requirements</h3>`;
+            
+            clusters.forEach(cluster => {
+                const lic = cluster.licensing;
+                html += `
+                    <div class="cluster-result">
+                        <h4 style="margin-bottom: 10px; color: rgba(255,255,255,0.9);">Cluster ${cluster.id}</h4>
+                        <p><strong>Infrastructure:</strong> ${cluster.nodes} nodes, ${cluster.totalCores} cores, ${cluster.totalSockets} sockets</p>
+                        <p><strong>License Requirement:</strong> ${lic.licensesNeeded} ${lic.licenseUnit}</p>
+                        ${cluster.vsanCapacity > 0 ? `<p><strong>vSAN Capacity:</strong> ${cluster.vsanCapacity} TiB</p>` : ''}
+                        ${lic.vsanAllowance > 0 ? `<p><strong>vSAN Allowance:</strong> ${lic.vsanAllowance.toFixed(2)} TiB included</p>` : ''}
+                        ${lic.vsanAddOnNeeded > 0 ? `<p><strong>vSAN Add-on Needed:</strong> ${lic.vsanAddOnNeeded.toFixed(2)} TiB</p>` : ''}
+                        <p><strong>Base License Cost:</strong> £${lic.baseCost.toLocaleString()}</p>
+                        ${lic.vsanCost > 0 ? `<p><strong>vSAN Cost:</strong> £${lic.vsanCost.toLocaleString()}</p>` : ''}
+                        <p><strong>Total Cluster Cost:</strong> £${lic.totalCost.toLocaleString()}</p>
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+
+            if (warnings.length > 0) {
+                html += '<div class="alert alert-warning">';
+                html += '<strong>Warnings:</strong><ul style="margin: 10px 0 0 20px;">';
+                warnings.forEach(warning => {
+                    html += `<li>${warning}</li>`;
+                });
+                html += '</ul></div>';
+            }
+
+            resultsDiv.innerHTML = html;
+        }
+
+        displayErrors(errors) {
+            const errorContainer = document.getElementById('errorContainer');
+            let html = '<div class="alert alert-danger"><strong>Please fix the following errors:</strong><ul style="margin: 10px 0 0 20px;">';
+            errors.forEach(error => {
+                html += `<li>${error}</li>`;
+            });
+            html += '</ul></div>';
+            errorContainer.innerHTML = html;
+            
+            // Scroll to errors
+            errorContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        clearErrors() {
+            document.getElementById('errorContainer').innerHTML = '';
+        }
+
+        showLoading() {
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+        }
+
+        hideLoading() {
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+        }
+    }
+
+    // Initialize the calculator
+    const calculator = new VMwareLicenseCalculator();
+</script>
+```
+
+</body>
+</html>
