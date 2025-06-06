@@ -220,8 +220,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>VMware License Calculator</h1>
-            <p>Broadcom Licensing Model - VCF & VVF Calculator</p>
+            <h1>VMware by Broadcom License Calculator</h1>
+            <p>Subscription Licensing Model - VCF, VVF & vSAN Calculator</p>
         </div>
 
 ```
@@ -263,7 +263,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="vsanCapacity-1">Raw vSAN Storage Capacity (TiB)</label>
+                            <label for="vsanCapacity-1">Raw vSAN Storage Capacity per cluster (TiB)</label>
                             <input type="number" id="vsanCapacity-1" class="vsanCapacity-input" min="0" max="10000" step="0.1">
                         </div>
                     </div>
@@ -320,7 +320,7 @@
             </div>
 
             <div class="form-group">
-                <label for="vsanCapacity-${clusterCount}">Raw vSAN Storage Capacity (TB)</label>
+                <label for="vsanCapacity-${clusterCount}">Raw vSAN Storage Capacity (TiB)</label>
                 <input type="number" id="vsanCapacity-${clusterCount}" class="vsanCapacity-input" min="0" max="10000" step="0.1">
             </div>
             
@@ -451,8 +451,8 @@
             <div class="result-item">
                 <h3>License Requirement</h3>
                 <p><strong>${licensesNeeded} ${licenseUnit}</strong> for ${licenseTypeName}</p>
-                ${vsanLicensesNeeded > 0 ? `<p><strong>${vsanLicensesNeeded} TB</strong> vSAN licenses needed</p>` : ''}
-                ${vsanAddOnNeeded > 0 ? `<p><strong>${vsanAddOnNeeded.toFixed(2)} TB</strong> vSAN add-on licenses needed</p>` : ''}
+                ${vsanLicensesNeeded > 0 ? `<p><strong>${vsanLicensesNeeded} TiB</strong> vSAN licenses needed</p>` : ''}
+                ${vsanAddOnNeeded > 0 ? `<p><strong>${vsanAddOnNeeded.toFixed(2)} TiB</strong> vSAN add-on licenses needed</p>` : ''}
             </div>
 
             <div class="result-item">
@@ -461,7 +461,7 @@
                 <p>Total Nodes: ${totals.totalNodes}</p>
                 <p>Total Cores: ${totals.totalCores}</p>
                 <p>Total Sockets: ${totals.totalSockets}</p>
-                ${totals.totalVsanCapacity > 0 ? `<p>Total Raw vSAN Capacity: ${totals.totalVsanCapacity} TB</p>` : ''}
+                ${totals.totalVsanCapacity > 0 ? `<p>Total Raw vSAN Capacity: ${totals.totalVsanCapacity} TiB</p>` : ''}
                 ${vsanAllowance > 0 ? `<p>vSAN Allowance Included: ${vsanAllowance.toFixed(2)} TB</p>` : ''}
             </div>
 
