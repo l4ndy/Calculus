@@ -473,7 +473,7 @@
             html += `
                 <div style="background: rgba(255,255,255,0.1); padding: 10px; margin: 5px 0; border-radius: 5px;">
                     <strong>Cluster ${cluster.id}:</strong> ${cluster.nodes} nodes, ${cluster.totalCores} cores, ${cluster.totalSockets} sockets
-                    ${cluster.vsanCapacity > 0 ? `, ${cluster.vsanCapacity} TB vSAN` : ''}
+                    ${cluster.vsanCapacity > 0 ? `, ${cluster.vsanCapacity} TiB vSAN` : ''}
                 </div>
             `;
         });
@@ -496,9 +496,9 @@
                 <div class="result-item">
                     <h3>vSAN Storage Breakdown</h3>
                     <p>Included with license: ${vsanAllowance.toFixed(2)} TB</p>
-                    ${totals.totalVsanCapacity > 0 ? `<p>Required capacity: ${totals.totalVsanCapacity} TB</p>` : ''}
+                    ${totals.totalVsanCapacity > 0 ? `<p>Required capacity: ${totals.totalVsanCapacity} TiB</p>` : ''}
                     ${vsanAddOnNeeded > 0 ? 
-                        `<p style="color: #ffc107;">Additional capacity needed: ${vsanAddOnNeeded.toFixed(2)} TB</p>` : 
+                        `<p style="color: #ffc107;">Additional capacity needed: ${vsanAddOnNeeded.toFixed(2)} TiB</p>` : 
                         totals.totalVsanCapacity > 0 ? `<p style="color: #28a745;">✓ Sufficient capacity included</p>` : ''
                     }
                 </div>
