@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft License Calculator - Azure Local</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #2c3e50, #4a6741);
+        color: white;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        font-weight: 300;
+    }
+
+    .header p {
+        font-size: 1.1em;
+        opacity: 0.9;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        padding: 40px;
+    }
+
+    .input-section {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .results-section {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    select, input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    select:focus, input:focus {
+        outline: none;
+        border-color: #667eea;
+        transform: translateY(-2px);
+    }
+
+    .calculate-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+    }
+
+    .calculate-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .result-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        border-left: 4px solid #fff;
+    }
+
+    .result-item h3 {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+    }
+
+    .result-item p {
+        font-size: 1.1em;
+        opacity: 0.9;
+    }
+
+    .warning {
+        background: #fff3cd;
+        color: #856404;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+        border-left: 4px solid #ffc107;
+    }
+
+    .info-box {
+        background: #e7f3ff;
+        color: #0c5460;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 4px solid #0dcaf0;
+    }
+
+    @media (max-width: 768px) {
+        .content {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>VMware License Calculator</h1>
+            <p>Broadcom Licensing Model - VCF & VVF Calculator</p>
+        </div>
+
+```
+    <div class="content">
+        <div class="input-section">
+            <div class="info-box">
+                <strong>Note:</strong> This calculator is based on the new Broadcom VMware licensing model introduced in 2024.
+            </div>
+
+            <form id="licenseForm">
+                <div class="form-group">
+                    <label for="licenseType">License Type</label>
+                    <select id="licenseType" required>
+                        <option value="">Select License Type</option>
+                        <option value="VVF">VMware vSphere Foundation (VVF)</option>
+                        <option value="VCF">VMware Cloud Foundation (VCF)</option>
+                        <option value="VEP">VMware vSphere Enterprise Plus</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nodes">Number of Nodes in Cluster</label>
+                    <input type="number" id="nodes" min="1" max="1000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cpuSockets">CPU Sockets per Node</label>
+                    <input type="number" id="cpuSockets" min="1" max="8" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="coresPerCpu">Cores per CPU</label>
+                    <input type="number" id="coresPerCpu" min="1" max="128" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="vsanCapacity">Raw vSAN Storage Capacity (TB)</label>
+                    <input type="number" id="vsanCapacity" min="0" max="10000" step="0.1" placeholder="Enter total raw storage capacity">
+                    <small style="color: #666; font-size: 0.9em;">Used for vSAN licensing calculations - enter total raw storage across all nodes</small>
+                </div>
+
+                <button type="submit" class="calculate-btn">Calculate Licenses</button>
+            </form>
+        </div>
+
+        <div class="results-section">
+            <h2>Licensing Results</h2>
+            <div id="results">
+                <p style="text-align: center; opacity: 0.7; font-size: 1.1em; margin-top: 50px;">
+                    Fill in the form and click "Calculate Licenses" to see your licensing requirements.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // No need for license type change handler since vSAN capacity is always visible
+
+    // Form submission handler
+    document.getElementById('licenseForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculateLicenses();
+    });
+
+    function calculateLicenses() {
+        const licenseType = document.getElementById('licenseType').value;
+        const nodes = parseInt(document.getElementById('nodes').value);
+        const cpuSockets = parseInt(document.getElementById('cpuSockets').value);
+        const coresPerCpu = parseInt(document.getElementById('coresPerCpu').value);
+        const vsanCapacity = parseFloat(document.getElementById('vsanCapacity').value) || 0;
+
+        const totalCores = nodes * cpuSockets * coresPerCpu;
+        const totalSockets = nodes * cpuSockets;
+
+        let licensesNeeded = 0;
+        let licenseUnit = '';
+        let estimatedCost = 0;
+        let warnings = [];
+        let vsanLicensesNeeded = 0;
+        let vsanCost = 0;
+        let vsanAllowance = 0;
+        let vsanAddOnNeeded = 0;
+
+        switch (licenseType) {
+            case 'VVF':
+                // VVF is core-based with minimums and includes 0.25 TiB vSAN per core
+                licensesNeeded = Math.max(totalCores, 50); // 50 core minimum
+                licenseUnit = 'cores';
+                estimatedCost = licensesNeeded * 20; // Approximate cost per core
+                
+                // VVF includes 0.25 TiB of vSAN per core
+                vsanAllowance = licensesNeeded * 0.25;
+                
+                if (vsanCapacity > vsanAllowance) {
+                    vsanAddOnNeeded = vsanCapacity - vsanAllowance;
+                    vsanCost = vsanAddOnNeeded * 150; // Approximate cost per TiB add-on
+                }
+                
+                if (licensesNeeded === 50 && totalCores < 50) {
+                    warnings.push(`Minimum 50 cores required for VVF. You have ${totalCores} cores but will pay for 50.`);
+                }
+                break;
+
+            case 'VCF':
+                // VCF is core-based with higher minimums and includes 1 TiB vSAN per core
+                licensesNeeded = Math.max(totalCores, 100); // 100 core minimum
+                licenseUnit = 'cores';
+                estimatedCost = licensesNeeded * 45; // Approximate cost per core
+                
+                // VCF includes 1 TiB of vSAN per core
+                vsanAllowance = licensesNeeded * 1.0;
+                
+                if (vsanCapacity > vsanAllowance) {
+                    vsanAddOnNeeded = vsanCapacity - vsanAllowance;
+                    vsanCost = vsanAddOnNeeded * 150; // Approximate cost per TiB add-on
+                }
+                
+                if (licensesNeeded === 100 && totalCores < 100) {
+                    warnings.push(`Minimum 100 cores required for VCF. You have ${totalCores} cores but will pay for 100.`);
+                }
+                break;
+
+            case 'VEP':
+                // Enterprise Plus is socket-based with no vSAN included
+                licensesNeeded = totalSockets;
+                licenseUnit = 'sockets';
+                estimatedCost = licensesNeeded * 2500; // Approximate cost per socket
+                
+                // VEP requires separate vSAN licensing for all storage
+                if (vsanCapacity > 0) {
+                    vsanLicensesNeeded = Math.ceil(vsanCapacity);
+                    vsanCost = vsanLicensesNeeded * 300; // Approximate cost per TiB
+                }
+                break;
+        }
+
+        displayResults(licenseType, licensesNeeded, licenseUnit, totalCores, totalSockets, vsanCapacity, estimatedCost, vsanLicensesNeeded, vsanCost, vsanAllowance, vsanAddOnNeeded, warnings);
+    }
+
+    function displayResults(licenseType, licensesNeeded, licenseUnit, totalCores, totalSockets, vsanCapacity, estimatedCost, vsanLicensesNeeded, vsanCost, vsanAllowance, vsanAddOnNeeded, warnings) {
+        const resultsDiv = document.getElementById('results');
+        
+        let licenseTypeName = '';
+        switch (licenseType) {
+            case 'VVF': licenseTypeName = 'VMware vSphere Foundation'; break;
+            case 'VCF': licenseTypeName = 'VMware Cloud Foundation'; break;
+            case 'VEP': licenseTypeName = 'VMware vSphere Enterprise Plus'; break;
+        }
+
+        let html = `
+            <div class="result-item">
+                <h3>License Requirement</h3>
+                <p><strong>${licensesNeeded} ${licenseUnit}</strong> for ${licenseTypeName}</p>
+                ${vsanLicensesNeeded > 0 ? `<p><strong>${vsanLicensesNeeded} TB</strong> vSAN licenses needed</p>` : ''}
+                ${vsanAddOnNeeded > 0 ? `<p><strong>${vsanAddOnNeeded.toFixed(2)} TB</strong> vSAN add-on licenses needed</p>` : ''}
+            </div>
+
+            <div class="result-item">
+                <h3>Infrastructure Summary</h3>
+                <p>Total Cores: ${totalCores}</p>
+                <p>Total Sockets: ${totalSockets}</p>
+                ${vsanCapacity > 0 ? `<p>Raw vSAN Capacity Required: ${vsanCapacity} TB</p>` : ''}
+                ${vsanAllowance > 0 ? `<p>vSAN Allowance Included: ${vsanAllowance.toFixed(2)} TB</p>` : ''}
+            </div>
+
+            <div class="result-item">
+                <h3>Estimated Annual Cost</h3>
+                <p><strong>Base License: $${estimatedCost.toLocaleString()}</strong></p>
+                ${vsanCost > 0 ? `<p><strong>vSAN Add-on: $${vsanCost.toLocaleString()}</strong></p>` : ''}
+                ${vsanCost > 0 ? `<p><strong>Total: $${(estimatedCost + vsanCost).toLocaleString()}</strong></p>` : ''}
+                <p style="font-size: 0.9em; opacity: 0.8;">*Approximate pricing - contact VMware for exact quotes</p>
+            </div>
+        `;
+
+        // Add vSAN allowance explanation
+        if (vsanAllowance > 0) {
+            html += `
+                <div class="result-item">
+                    <h3>vSAN Storage Breakdown</h3>
+                    <p>Included with license: ${vsanAllowance.toFixed(2)} TB</p>
+                    ${vsanCapacity > 0 ? `<p>Required capacity: ${vsanCapacity} TB</p>` : ''}
+                    ${vsanAddOnNeeded > 0 ? 
+                        `<p style="color: #ffc107;">Additional capacity needed: ${vsanAddOnNeeded.toFixed(2)} TB</p>` : 
+                        vsanCapacity > 0 ? `<p style="color: #28a745;">✓ Sufficient capacity included</p>` : ''
+                    }
+                </div>
+            `;
+        }
+
+        if (warnings.length > 0) {
+            html += '<div class="warning">';
+            warnings.forEach(warning => {
+                html += `<p><strong>Warning:</strong> ${warning}</p>`;
+            });
+            html += '</div>';
+        }
+
+        resultsDiv.innerHTML = html;
+    }
+</script>
+```
+
+</body>
+</html>
